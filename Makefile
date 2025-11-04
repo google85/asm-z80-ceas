@@ -31,6 +31,13 @@ build:
 disass:
 	z80dasm -z -a -l -t ./src/ceas65040.bin > ./build/ceas65040.lst
 
+## disass: Generate ASCII from hex values
+.PHONY: generate
+generate:
+	@echo "F321F8FC01100136F7230B78B120F83EFDED47ED5EFBC9000000" \
+	| perl -pe 's/([0-9A-Fa-f]{2})/chr(hex($$1))/eg' \
+ 	> ./src/ceas65040.bin
+
 ## clean: Clean-up the build binaries
 .PHONY: clean
 clean:
