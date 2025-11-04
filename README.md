@@ -17,4 +17,5 @@ hexdump -C ./build/ceas.out
 ### Notes:
 > ./src/ceas.bas      - Basic source containing POKE commands for assembling
 > ./src/ceas65040.bin - Hex2Ascii for data from Basic source, used for generating assmbly source code
+> ./src/ceas63479.bin - Hex2Ascii for data from Basic source, used for generating assmbly source code
 > ./src/ceas.s        - Clean assembly source code, based on files above
