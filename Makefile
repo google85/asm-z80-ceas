@@ -1,6 +1,7 @@
 BUILD_DIR = ./build
 SRC_IN = ./src/ceas.s
 BIN_OUT = ./build/ceas.out
+LST_OUT = ./build/ceas.lst
 DOCKER_IMAGE=local/vasm-dev:z80
 BUILD_CC=vasm
 
@@ -21,7 +22,8 @@ docker-img-build:
 .PHONY: build
 build:
 	@mkdir -p ${BUILD_DIR} && chown 1000:1000 ${BUILD_DIR}
-	${BUILD_CC} -Fbin -dotdir ${SRC_IN} -o ${BIN_OUT}
+#	${BUILD_CC} -Fbin -dotdir ${SRC_IN} -o ${BIN_OUT}
+	${BUILD_CC} -Fbin -L ${LST_OUT} -dotdir ${SRC_IN} -o ${BIN_OUT}
 	hexdump -C ${BIN_OUT}
 
 ## disass: Disassemble binary file
