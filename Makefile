@@ -30,6 +30,7 @@ build:
 .PHONY: disass
 disass:
 	z80dasm -z -a -l -t ./src/ceas65040.bin > ./build/ceas65040.lst
+	z80dasm -z -a -l -t ./src/ceas63479.bin > ./build/ceas63479.lst
 
 ## disass: Generate ASCII from hex values
 .PHONY: generate
