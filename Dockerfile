@@ -12,7 +12,7 @@ WORKDIR /usr/src
 RUN set -eux; \
     apt-get update && \
     apt-get install -y \
-        build-essential wget bsdmainutils \
+        build-essential wget bsdmainutils z80dasm \
     && wget http://sun.hasenbraten.de/vasm/release/vasm.tar.gz \
     && tar xzf vasm.tar.gz \
     && cd vasm \

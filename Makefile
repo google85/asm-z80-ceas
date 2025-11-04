@@ -24,6 +24,11 @@ build:
 	${BUILD_CC} -Fbin -dotdir ${SRC_IN} -o ${BIN_OUT}
 	hexdump -C ${BIN_OUT}
 
+## disass: Disassemble binary file
+.PHONY: disass
+disass:
+	z80dasm -z -a -l -t ./src/ceas65040.bin > ./build/ceas65040.lst
+
 ## clean: Clean-up the build binaries
 .PHONY: clean
 clean:
