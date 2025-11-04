@@ -29,8 +29,8 @@ build:
 ## disass: Disassemble binary file
 .PHONY: disass
 disass:
-	z80dasm -z -a -l -t ./src/ceas65040.bin > ./build/ceas65040.lst
-	z80dasm -z -a -l -t ./src/ceas63479.bin > ./build/ceas63479.lst
+	z80dasm -z -a -l -t -g 0xFE10 ./src/ceas65040.bin > ./build/ceas65040.lst
+	z80dasm -z -a -l -t -g 0xF7F7 ./src/ceas63479.bin > ./build/ceas63479.lst
 
 ## disass: Generate ASCII from hex values
 .PHONY: generate
