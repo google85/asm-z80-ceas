@@ -25,8 +25,11 @@ build:
 	${BUILD_CC} -Fbin -L ${LST_OUT} -dotdir ${SRC_IN} -o ${BIN_OUT}
 	hexdump -C ${BIN_OUT}
 
+create-build-dir:
+	@mkdir -p ${BUILD_DIR}
+
 ## disass: Generate ASCII binaries from hex values
-generate-bin:
+generate-bin: create-build-dir
 	@echo -n "F321F8FC01100136F7230B78B120F83EFDED47ED5EFBC9000000" \
 	| perl -pe 's/([0-9A-Fa-f]{2})/chr(hex($$1))/eg' \
  	> ${BUILD_DIR}/ceas65040.bin
@@ -34,7 +37,7 @@ generate-bin:
 	| perl -pe 's/([0-9A-Fa-f]{2})/chr(hex($$1))/eg' \
  	> ${BUILD_DIR}/ceas63479.bin
 
-## disass: Disassemble binary files
+## disass: Disassemble binary files into .lst assembly listings
 disass:
 	z80dasm -z -a -l -t -g 0xFE10 ${BUILD_DIR}/routine1_65040.bin > ${BUILD_DIR}/routine1_65040.lst
 	z80dasm -z -a -l -t -g 0xF7F7 ${BUILD_DIR}/routine2_63479.bin > ${BUILD_DIR}/routine2_63479.lst
