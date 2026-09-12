@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sjasmplus --lst=build/ceas.lst src/ceas.s)",
+      "Bash(chmod +x tools/probe-sna.pl)",
+      "Bash(perl tools/probe-sna.pl build/ceas.sna)",
+      "Bash(perl tools/probe-sna.pl build/ceas.sna 0xFE10 26)"
+    ]
+  }
+}
