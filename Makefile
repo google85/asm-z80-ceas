@@ -7,13 +7,11 @@ LST_OUT = ${BUILD_DIR}/${SRC_FILE}.lst
 DOCKER_IMAGE=local/vasm-dev:z80
 BUILD_CC=vasm
 
-.PHONY: help
 help:
 	@echo "Usage":
 	@sed -n 's/^##//p' ${MAKEFILE_LIST} |  sed -e 's/^/ /'
 
 ## dev: Enter Docker development environment
-.PHONY: dev
 dev: docker-img-build
 	docker run --rm -it -v .:/app --name vasm-depl-z80 -w /app  ${DOCKER_IMAGE}
 
@@ -21,22 +19,14 @@ docker-img-build:
 	docker build -t ${DOCKER_IMAGE} .
 
 ## build: Build the application
-.PHONY: build
 build:
 	@mkdir -p ${BUILD_DIR} && chown 1000:1000 ${BUILD_DIR}
 #	${BUILD_CC} -Fbin -dotdir ${SRC_IN} -o ${BIN_OUT}
 	${BUILD_CC} -Fbin -L ${LST_OUT} -dotdir ${SRC_IN} -o ${BIN_OUT}
 	hexdump -C ${BIN_OUT}
 
-## disass: Disassemble binary file
-.PHONY: disass
-disass:
-	z80dasm -z -a -l -t -g 0xFE10 ${SRC_DIR}/routine1_65040.bin > ${BUILD_DIR}/routine1_65040.lst
-	z80dasm -z -a -l -t -g 0xF7F7 ${SRC_DIR}/routine2_63479.bin > ${BUILD_DIR}/routine2_63479.lst
-
-## disass: Generate ASCII from hex values
-.PHONY: generate
-generate:
+## disass: Generate ASCII binaries from hex values
+generate-bin:
 	@echo -n "F321F8FC01100136F7230B78B120F83EFDED47ED5EFBC9000000" \
 	| perl -pe 's/([0-9A-Fa-f]{2})/chr(hex($$1))/eg' \
  	> ${BUILD_DIR}/ceas65040.bin
@@ -44,8 +34,14 @@ generate:
 	| perl -pe 's/([0-9A-Fa-f]{2})/chr(hex($$1))/eg' \
  	> ${BUILD_DIR}/ceas63479.bin
 
+## disass: Disassemble binary files
+disass:
+	z80dasm -z -a -l -t -g 0xFE10 ${BUILD_DIR}/routine1_65040.bin > ${BUILD_DIR}/routine1_65040.lst
+	z80dasm -z -a -l -t -g 0xF7F7 ${BUILD_DIR}/routine2_63479.bin > ${BUILD_DIR}/routine2_63479.lst
+
 ## clean: Clean-up the build binaries
-.PHONY: clean
 clean:
 	@echo "Cleaning up..."
 	@rm -rf ${BUILD_DIR}
+
+.PHONY: help dev docker-img-build build generate-bin disass clean
