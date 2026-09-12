@@ -19,14 +19,13 @@ docker-img-build:
 	docker build -t ${DOCKER_IMAGE} .
 
 ## build: Build the application
-build:
-	@mkdir -p ${BUILD_DIR} && chown 1000:1000 ${BUILD_DIR}
+build: create-build-dir
 #	${BUILD_CC} -Fbin -dotdir ${SRC_IN} -o ${BIN_OUT}
 	${BUILD_CC} -Fbin -L ${LST_OUT} -dotdir ${SRC_IN} -o ${BIN_OUT}
 	hexdump -C ${BIN_OUT}
 
 create-build-dir:
-	@mkdir -p ${BUILD_DIR}
+	@mkdir -p ${BUILD_DIR} && chown 1000:1000 ${BUILD_DIR}
 
 ## disass: Generate ASCII binaries from hex values
 generate-bin: create-build-dir
