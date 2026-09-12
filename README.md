@@ -13,6 +13,15 @@ make build
 hexdump -C ./build/ceas.out
 ```
 
+> run:
+- Open resulted `build/ceas.sna` in ZEsarUX or othe emulator
+- Set initial time using:
+```
+POKE 63667,VAL a$(1)*16+VAL a$(2)
+POKE 64668,VAL a$(4)*16+VAL a$(5)
+POKE 63669,VAL a$(7)*16+VAL a$(8)
+```
+
 
 ### Notes:
 > ./src/ceas.bas      - Basic source containing POKE commands for assembling
