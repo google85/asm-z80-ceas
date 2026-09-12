@@ -1,0 +1,11 @@
+{
+    "json.schemaDownload.enable": false, // disables warning
+    "editor.formatOnSave": false,
+    "[asm]": {
+        "editor.detectIndentation": false
+    },
+    "files.associations": {
+        ".env": "ini",
+        "Dockerfile*": "dockerfile"
+    }
+}
